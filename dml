@@ -1,0 +1,259 @@
+mysql> use melvin
+Database changed
+mysql> use melvin;
+Database changed
+mysql> CREATE TABLE STUDENT(stname varchar(30,stid int PRIMARY KEY,address varchar(50),branch varcha(5),college varchar(40));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',stid int PRIMARY KEY,address varchar(50),branch varcha(5),college varchar(40))' at line 1
+mysql> CREATE TABLE STUDENT(stname varchar(30,stid int PRIMARY KEY,address varchar(50),branch varchar(5),college varchar(40));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',stid int PRIMARY KEY,address varchar(50),branch varchar(5),college varchar(40))' at line 1
+mysql> CREATE TABLE STUDENT(stname varchar(30),stid int PRIMARY KEY,address varchar(50),branch varchar(5),college varchar(40));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| stname  | varchar(30) | YES  |     | NULL    |       |
+| stid    | int         | NO   | PRI | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| branch  | varchar(5)  | YES  |     | NULL    |       |
+| college | varchar(40) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT address to location
+    -> ALTER TABLE STUDENT address to location^C
+mysql> ALTER TABLE STUDENT address to location;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address to location' at line 1
+mysql> ALTER TABLE STUDENT RENAME COLUMN address to location;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO STUDENT(stname,stid,location,branch,college)VALUES('MELVIN',1,'VALANJVATTOM','CSOT','PRC'),('ADHIL',2,USA,'CSE','SREEBUDDHA'),('MAHESHWAR',3,'AUSTRILLA','CSE','AMALGOYTHI'),('SHREYA',4,'KADAPRA','CSOT','PRC'),('ARUNIMA',5,'CHAGANASSHERY','CSE','SAINTGITS');
+ERROR 1054 (42S22): Unknown column 'USA' in 'field list'
+mysql> INSERT INTO STUDENT(stname,stid,location,branch,college)VALUES('MELVIN',1,'VALANJVATTOM','CSOT','PRC'),('ADHIL',2,'USA','CSE','SREEBUDDHA'),('MAHESHWAR',3,'AUSTRILLA','CSE','AMALGOYTHI'),('SHREYA',4,'KADAPRA','CSOT','PRC'),('ARUNIMA',5,'CHAGANASSHERY','CSE','SAINTGITS');
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO STUDENT(stname,stid,location,branch,college)VALUES('MELVIN',1,'VALANJVATTOM','CSOT','PRC'),('ADHIL',2,'USA','CSE','SREEBUDDHA'),('MAHESHWAR',3,'AUSTRILLA','CSE','AMALGOYTHI'),('SHREYA',4,'KADAPRA','ECE','PRC'),('ARUNIMA',5,'CHAGANASSHERY','CSE','SAINTGITS');
+ERROR 1062 (23000): Duplicate entry '1' for key 'student.PRIMARY'
+mysql> TRUNCATE TABLE STUDENT;
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> INSERT INTO STUDENT(stname,stid,location,branch,college)VALUES('MELVIN',1,'VALANJVATTOM','CSOT','PRC'),('ADHIL',2,'USA','CSE','SREEBUDDHA'),('MAHESHWAR',3,'AUSTRILLA','CSE','AMALGOYTHI'),('SHREYA',4,'KADAPRA','ECE','PRC'),('ARUNIMA',5,'CHAGANASSHERY','CSE','SAINTGITS');
+Query OK, 5 rows affected (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| stname   | varchar(30) | YES  |     | NULL    |       |
+| stid     | int         | NO   | PRI | NULL    |       |
+| location | varchar(50) | YES  |     | NULL    |       |
+| branch   | varchar(5)  | YES  |     | NULL    |       |
+| college  | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+---------------+--------+------------+
+| stname    | stid | location      | branch | college    |
++-----------+------+---------------+--------+------------+
+| MELVIN    |    1 | VALANJVATTOM  | CSOT   | PRC        |
+| ADHIL     |    2 | USA           | CSE    | SREEBUDDHA |
+| MAHESHWAR |    3 | AUSTRILLA     | CSE    | AMALGOYTHI |
+| SHREYA    |    4 | KADAPRA       | ECE    | PRC        |
+| ARUNIMA   |    5 | CHAGANASSHERY | CSE    | SAINTGITS  |
++-----------+------+---------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT BRANCH FROM STUDENT;
++--------+
+| BRANCH |
++--------+
+| CSOT   |
+| CSE    |
+| ECE    |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET BRANCH 'CSE' WHERE COLLEGE='PRC'
+    -> ^C
+mysql> UPDATE STUDENT SET BRANCH 'CSE' WHERE COLLEGE='PRC';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''CSE' WHERE COLLEGE='PRC'' at line 1
+mysql> UPDATE STUDENT SET branch='CSE'WHERE colege='PRC';
+ERROR 1054 (42S22): Unknown column 'colege' in 'where clause'
+mysql> UPDATE STUDENT SET branch='CSE'WHERE college='PRC';
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+---------------+--------+------------+
+| stname    | stid | location      | branch | college    |
++-----------+------+---------------+--------+------------+
+| MELVIN    |    1 | VALANJVATTOM  | CSE    | PRC        |
+| ADHIL     |    2 | USA           | CSE    | SREEBUDDHA |
+| MAHESHWAR |    3 | AUSTRILLA     | CSE    | AMALGOYTHI |
+| SHREYA    |    4 | KADAPRA       | CSE    | PRC        |
+| ARUNIMA   |    5 | CHAGANASSHERY | CSE    | SAINTGITS  |
++-----------+------+---------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET college='prc'
+    -> ^C
+mysql> UPDATE STUDENT SET college='PRC'
+    -> ^C
+mysql> UPDATE STUDENT SET college='PRC';
+Query OK, 3 rows affected (0.04 sec)
+Rows matched: 5  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+---------------+--------+---------+
+| stname    | stid | location      | branch | college |
++-----------+------+---------------+--------+---------+
+| MELVIN    |    1 | VALANJVATTOM  | CSE    | PRC     |
+| ADHIL     |    2 | USA           | CSE    | PRC     |
+| MAHESHWAR |    3 | AUSTRILLA     | CSE    | PRC     |
+| SHREYA    |    4 | KADAPRA       | CSE    | PRC     |
+| ARUNIMA   |    5 | CHAGANASSHERY | CSE    | PRC     |
++-----------+------+---------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT DROP COLUMN location;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+--------+---------+
+| stname    | stid | branch | college |
++-----------+------+--------+---------+
+| MELVIN    |    1 | CSE    | PRC     |
+| ADHIL     |    2 | CSE    | PRC     |
+| MAHESHWAR |    3 | CSE    | PRC     |
+| SHREYA    |    4 | CSE    | PRC     |
+| ARUNIMA   |    5 | CSE    | PRC     |
++-----------+------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> update STUDENT SET branch='ece' where stname='MASHESHWAR';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+--------+---------+
+| stname    | stid | branch | college |
++-----------+------+--------+---------+
+| MELVIN    |    1 | CSE    | PRC     |
+| ADHIL     |    2 | CSE    | PRC     |
+| MAHESHWAR |    3 | CSE    | PRC     |
+| SHREYA    |    4 | CSE    | PRC     |
+| ARUNIMA   |    5 | CSE    | PRC     |
++-----------+------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> update STUDENT SET branch='ECE' where stname='MASHESHWAR';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+--------+---------+
+| stname    | stid | branch | college |
++-----------+------+--------+---------+
+| MELVIN    |    1 | CSE    | PRC     |
+| ADHIL     |    2 | CSE    | PRC     |
+| MAHESHWAR |    3 | CSE    | PRC     |
+| SHREYA    |    4 | CSE    | PRC     |
+| ARUNIMA   |    5 | CSE    | PRC     |
++-----------+------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> update STUDENT SET branch='ece' where stname='MAHESHWAR';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+--------+---------+
+| stname    | stid | branch | college |
++-----------+------+--------+---------+
+| MELVIN    |    1 | CSE    | PRC     |
+| ADHIL     |    2 | CSE    | PRC     |
+| MAHESHWAR |    3 | ece    | PRC     |
+| SHREYA    |    4 | CSE    | PRC     |
+| ARUNIMA   |    5 | CSE    | PRC     |
++-----------+------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;^C
+mysql> SELECT * FROM STUDENT WHERE branch='CSE';
++---------+------+--------+---------+
+| stname  | stid | branch | college |
++---------+------+--------+---------+
+| MELVIN  |    1 | CSE    | PRC     |
+| ADHIL   |    2 | CSE    | PRC     |
+| SHREYA  |    4 | CSE    | PRC     |
+| ARUNIMA |    5 | CSE    | PRC     |
++---------+------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET college=null WHERE branch='CSE';
+Query OK, 4 rows affected (0.05 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-----------+------+--------+---------+
+| stname    | stid | branch | college |
++-----------+------+--------+---------+
+| MELVIN    |    1 | CSE    | NULL    |
+| ADHIL     |    2 | CSE    | NULL    |
+| MAHESHWAR |    3 | ece    | PRC     |
+| SHREYA    |    4 | CSE    | NULL    |
+| ARUNIMA   |    5 | CSE    | NULL    |
++-----------+------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT DROP ROW MAHESHWAR;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ROW MAHESHWAR' at line 1
+mysql> DELETE FROM STUDENT WHERE branch='ece';
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM STUDENT;
++---------+------+--------+---------+
+| stname  | stid | branch | college |
++---------+------+--------+---------+
+| MELVIN  |    1 | CSE    | NULL    |
+| ADHIL   |    2 | CSE    | NULL    |
+| SHREYA  |    4 | CSE    | NULL    |
+| ARUNIMA |    5 | CSE    | NULL    |
++---------+------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM STUDENT WHERE branch='CSE';
+Query OK, 4 rows affected (0.05 sec)
+
+mysql> SELECT * FROM STUDENT;
+Empty set (0.00 sec)
+
+mysql> DESC STUDENT
+    -> DESC STUDENT^C
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| stname  | varchar(30) | YES  |     | NULL    |       |
+| stid    | int         | NO   | PRI | NULL    |       |
+| branch  | varchar(5)  | YES  |     | NULL    |       |
+| college | varchar(40) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DROP STUDENT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'STUDENT' at line 1
+mysql> DROP STUDENT TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'STUDENT TABLE' at line 1
+mysql> DROP TABLE STUDENT;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> DESC STUDENT;
+ERROR 1146 (42S02): Table 'melvin.student' doesn't exist
+mysql>
